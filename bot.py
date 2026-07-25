@@ -24,12 +24,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("ሰላም Miki! እኔ የልቦናህ አጋር ጌሚኒ AI ነኝ፤ ምን ልረዳህ?")
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_message = update.message.text
     try:
         # ለተጠቃሚው ጥያቄ ከ Gemini AI መልስ ማግኘት
-        response = model.generate_content(update.message.text)
+        response = model.generate_content(user_message)
         await update.message.reply_text(response.text)
     except Exception as e:
-        await update.message.reply_text("ይቅርታ፣ ስህተት አጋጥሟል!")
+        await update.message.reply_text("ይቅርታ፣ ከ Gemini ጋር ስንገናኝ ስህተት አጋጥሟል!")
 
 if __name__ == '__main__':
     # ፍላስክን ከበስተጀርባ ማስጀመር
@@ -38,6 +39,10 @@ if __name__ == '__main__':
 
     # ቴሌግራም ቦቱን ማስጀመር
     app = ApplicationBuilder().token(os.environ.get("TELEGRAM_TOKEN")).build()
+    
+    # ሃንድለሮች (Handlers)
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_message))
+
+    # ቦቱን ማስኬድ
     app.run_polling()
