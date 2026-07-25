@@ -14,7 +14,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 if __name__ == '__main__':
     # የቴሌግራም ቦት Token ህን እዚህ ቦታ ላይ በግልጽ አስገባ (ወይም Environment Variable ተጠቀም)
-    TOKEN = "8591437134:AAGSM3A0RoWss0t7Gr0Jt2xgvmE_ZX-fD5E "
+    TOKEN = "8591437134:AAFQyyHHNzCTE1xFOY8xyzkXMDTxHviDOOM"
     
     app = ApplicationBuilder().token(TOKEN).build()
     
